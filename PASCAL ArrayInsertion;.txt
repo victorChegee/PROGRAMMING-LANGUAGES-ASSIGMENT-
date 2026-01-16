@@ -1,0 +1,52 @@
+program ArrayInsertion;
+
+type
+    MyArray = record
+        arr: array[1..100] of integer;
+        size: integer;
+        procedure Insert(value, position: integer);
+        procedure Display;
+    end;
+
+procedure MyArray.Insert(value, position: integer);
+var
+    i: integer;
+begin
+    if (position < 1) or (position > size + 1) then
+    begin
+        writeln('Invalid position!');
+        exit;
+    end;
+
+    (* Shift elements to the right *)
+    for i := size downto position do
+        arr[i + 1] := arr[i];
+
+    arr[position] := value;
+    size := size + 1;
+
+    writeln('Inserted ', value, ' at position ', position);
+end;
+
+procedure MyArray.Display;
+var
+    i: integer;
+begin
+    for i := 1 to size do
+        write(arr[i], ' ');
+    writeln;
+end;
+
+var
+    A: MyArray;
+
+begin
+    A.size := 0;
+
+    A.Insert(10, 1);
+    A.Insert(20, 2);
+    A.Insert(15, 2);
+
+    writeln('Array elements:');
+    A.Display;
+end.
